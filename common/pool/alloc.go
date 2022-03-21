@@ -23,7 +23,7 @@ func NewAllocator() *Allocator {
 	alloc.buffers = make([]sync.Pool, 17) // 1B -> 64K
 	for k := range alloc.buffers {
 		i := k
-		alloc.buffers[k].New = func() any {
+		alloc.buffers[k].New = func() interface{} {
 			return make([]byte, 1<<uint32(i))
 		}
 	}

@@ -51,7 +51,7 @@ func ValidAndSplitDomain(domain string) ([]string, bool) {
 // 3. subdomain.*.example.com
 // 4. .example.com
 // 5. +.example.com
-func (t *DomainTrie) Insert(domain string, data any) error {
+func (t *DomainTrie) Insert(domain string, data interface{}) error {
 	parts, valid := ValidAndSplitDomain(domain)
 	if !valid {
 		return ErrInvalidDomain
@@ -68,7 +68,7 @@ func (t *DomainTrie) Insert(domain string, data any) error {
 	return nil
 }
 
-func (t *DomainTrie) insert(parts []string, data any) {
+func (t *DomainTrie) insert(parts []string, data interface{}) {
 	node := t.root
 	// reverse storage domain part to save space
 	for i := len(parts) - 1; i >= 0; i-- {

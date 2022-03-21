@@ -65,10 +65,10 @@ func decodeBasicProxyAuthorization(credential string) (string, string, error) {
 		return "", "", err
 	}
 
-	user, pass, found := strings.Cut(string(plain), ":")
-	if !found {
+	login := strings.Split(string(plain), ":")
+	if len(login) != 2 {
 		return "", "", errors.New("invalid login")
 	}
 
-	return user, pass, nil
+	return login[0], login[1], nil
 }

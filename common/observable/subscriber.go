@@ -4,14 +4,14 @@ import (
 	"sync"
 )
 
-type Subscription <-chan any
+type Subscription <-chan interface{}
 
 type Subscriber struct {
-	buffer chan any
+	buffer chan interface{}
 	once   sync.Once
 }
 
-func (s *Subscriber) Emit(item any) {
+func (s *Subscriber) Emit(item interface{}) {
 	s.buffer <- item
 }
 
@@ -27,7 +27,7 @@ func (s *Subscriber) Close() {
 
 func newSubscriber() *Subscriber {
 	sub := &Subscriber{
-		buffer: make(chan any, 200),
+		buffer: make(chan interface{}, 200),
 	}
 	return sub
 }

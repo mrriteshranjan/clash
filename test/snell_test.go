@@ -37,7 +37,7 @@ func TestClash_SnellObfsHTTP(t *testing.T) {
 		Server: localIP.String(),
 		Port:   10002,
 		Psk:    "password",
-		ObfsOpts: map[string]any{
+		ObfsOpts: map[string]interface{}{
 			"mode": "http",
 		},
 	})
@@ -74,7 +74,7 @@ func TestClash_SnellObfsTLS(t *testing.T) {
 		Server: localIP.String(),
 		Port:   10002,
 		Psk:    "password",
-		ObfsOpts: map[string]any{
+		ObfsOpts: map[string]interface{}{
 			"mode": "tls",
 		},
 	})
@@ -181,7 +181,7 @@ func Benchmark_Snell(b *testing.B) {
 		Server: localIP.String(),
 		Port:   10002,
 		Psk:    "password",
-		ObfsOpts: map[string]any{
+		ObfsOpts: map[string]interface{}{
 			"mode": "http",
 		},
 	})

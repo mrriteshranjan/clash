@@ -6,17 +6,17 @@ import (
 	"time"
 )
 
-type Factory = func(context.Context) (any, error)
+type Factory = func(context.Context) (interface{}, error)
 
 type entry struct {
-	elm  any
+	elm  interface{}
 	time time.Time
 }
 
 type Option func(*pool)
 
 // WithEvict set the evict callback
-func WithEvict(cb func(any)) Option {
+func WithEvict(cb func(interface{})) Option {
 	return func(p *pool) {
 		p.evict = cb
 	}
@@ -32,7 +32,7 @@ func WithAge(maxAge int64) Option {
 // WithSize defined max size of Pool
 func WithSize(maxSize int) Option {
 	return func(p *pool) {
-		p.ch = make(chan any, maxSize)
+		p.ch = make(chan interface{}, maxSize)
 	}
 }
 
@@ -42,13 +42,13 @@ type Pool struct {
 }
 
 type pool struct {
-	ch      chan any
+	ch      chan interface{}
 	factory Factory
-	evict   func(any)
+	evict   func(interface{})
 	maxAge  int64
 }
 
-func (p *pool) GetContext(ctx context.Context) (any, error) {
+func (p *pool) GetContext(ctx context.Context) (interface{}, error) {
 	now := time.Now()
 	for {
 		select {
@@ -68,11 +68,11 @@ func (p *pool) GetContext(ctx context.Context) (any, error) {
 	}
 }
 
-func (p *pool) Get() (any, error) {
+func (p *pool) Get() (interface{}, error) {
 	return p.GetContext(context.Background())
 }
 
-func (p *pool) Put(item any) {
+func (p *pool) Put(item interface{}) {
 	e := &entry{
 		elm:  item,
 		time: time.Now(),
@@ -100,7 +100,7 @@ func recycle(p *Pool) {
 
 func New(factory Factory, options ...Option) *Pool {
 	p := &pool{
-		ch:      make(chan any, 10),
+		ch:      make(chan interface{}, 10),
 		factory: factory,
 	}
 

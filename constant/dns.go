@@ -21,7 +21,7 @@ const (
 type DNSMode int
 
 // UnmarshalYAML unserialize EnhancedMode with yaml
-func (e *DNSMode) UnmarshalYAML(unmarshal func(any) error) error {
+func (e *DNSMode) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var tp string
 	if err := unmarshal(&tp); err != nil {
 		return err
@@ -35,7 +35,7 @@ func (e *DNSMode) UnmarshalYAML(unmarshal func(any) error) error {
 }
 
 // MarshalYAML serialize EnhancedMode with yaml
-func (e DNSMode) MarshalYAML() (any, error) {
+func (e DNSMode) MarshalYAML() (interface{}, error) {
 	return e.String(), nil
 }
 

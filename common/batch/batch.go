@@ -8,7 +8,7 @@ import (
 type Option = func(b *Batch)
 
 type Result struct {
-	Value any
+	Value interface{}
 	Err   error
 }
 
@@ -38,7 +38,7 @@ type Batch struct {
 	cancel func()
 }
 
-func (b *Batch) Go(key string, fn func() (any, error)) {
+func (b *Batch) Go(key string, fn func() (interface{}, error)) {
 	b.wg.Add(1)
 	go func() {
 		defer b.wg.Done()

@@ -25,7 +25,7 @@ const (
 type LogLevel int
 
 // UnmarshalYAML unserialize LogLevel with yaml
-func (l *LogLevel) UnmarshalYAML(unmarshal func(any) error) error {
+func (l *LogLevel) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var tp string
 	unmarshal(&tp)
 	level, exist := LogLevelMapping[tp]
@@ -54,7 +54,7 @@ func (l LogLevel) MarshalJSON() ([]byte, error) {
 }
 
 // MarshalYAML serialize LogLevel with yaml
-func (l LogLevel) MarshalYAML() (any, error) {
+func (l LogLevel) MarshalYAML() (interface{}, error) {
 	return l.String(), nil
 }
 
