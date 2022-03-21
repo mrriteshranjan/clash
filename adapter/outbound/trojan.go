@@ -173,7 +173,6 @@ func NewTrojan(option TrojanOption) (*Trojan, error) {
 			tp:    C.Trojan,
 			udp:   option.UDP,
 			iface: option.Interface,
-			rmark: option.RoutingMark,
 		},
 		instance: trojan.New(tOption),
 		option:   &option,

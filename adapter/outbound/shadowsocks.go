@@ -160,7 +160,6 @@ func NewShadowSocks(option ShadowSocksOption) (*ShadowSocks, error) {
 			tp:    C.Shadowsocks,
 			udp:   option.UDP,
 			iface: option.Interface,
-			rmark: option.RoutingMark,
 		},
 		cipher: ciph,
 
